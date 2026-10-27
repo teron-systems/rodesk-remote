@@ -1,0 +1,36 @@
+diff --git a/src/config.rs b/src/config.rs
+index 6fe1004..57f0021 100644
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -69,7 +69,7 @@ lazy_static::lazy_static! {
+     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
+     pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
+     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
+-    pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
++    pub static ref APP_NAME: RwLock<String> = RwLock::new("RoDeskRemote".to_owned());
+     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
+     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
+     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
+@@ -80,7 +80,10 @@ lazy_static::lazy_static! {
+     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+     pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+     pub static ref HARD_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+-    pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
++    // RoDesk Remote: opțiuni fixe ale clientului cu marca proprie
++    pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = RwLock::new(HashMap::from([
++        ("hide-powered-by-me".to_owned(), "Y".to_owned()),
++    ]));
+ }
+ 
+ #[cfg(target_os = "android")]
+@@ -114,8 +117,8 @@ const CHARS: &[char] = &[
+     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+ ];
+ 
+-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
+-pub const RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
++pub const RENDEZVOUS_SERVERS: &[&str] = &["remote.teron.ro"];
++pub const RS_PUB_KEY: &str = "ZbcX8NjVmjEIml9lLdwf3UhP9BPzy0o6Wi8alCwWXvA=";
+ 
+ pub const RENDEZVOUS_PORT: i32 = 21116;
+ pub const RELAY_PORT: i32 = 21117;

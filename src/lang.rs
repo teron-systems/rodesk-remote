@@ -257,7 +257,9 @@ pub fn translate_locale(name: String, locale: &str) -> String {
             {
                 let app_name = crate::get_app_name();
                 if !app_name.contains("RustDesk") {
-                    s = s.replace("RustDesk", &app_name);
+                    // RoDesk Remote: numele intern n-are spațiu (comenzile `sc` nu-l pun între ghilimele), cel afișat da
+                    let shown = if app_name == "RoDeskRemote" { "RoDesk Remote".to_owned() } else { app_name };
+                    s = s.replace("RustDesk", &shown);
                 } else {
                     // https://github.com/rustdesk/rustdesk-server-pro/issues/845
                     // If app_name contains "RustDesk" (e.g., "RustDesk-Admin"), we need to avoid
