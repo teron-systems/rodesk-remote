@@ -1,8 +1,8 @@
 diff --git a/src/config.rs b/src/config.rs
-index 6fe1004..57f0021 100644
+index 6fe1004..d928c0e 100644
 --- a/src/config.rs
 +++ b/src/config.rs
-@@ -69,7 +69,7 @@ lazy_static::lazy_static! {
+@@ -69,18 +69,24 @@ lazy_static::lazy_static! {
      static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
      pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
      pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
@@ -11,7 +11,14 @@ index 6fe1004..57f0021 100644
      static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
      static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
      pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
-@@ -80,7 +80,10 @@ lazy_static::lazy_static! {
+     pub static ref DEFAULT_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+-    pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
++    // RoDesk Remote: implicit, ecranul la distanță se potrivește la fereastră („adaptive”), nu 1:1 pe pixeli
++    pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = RwLock::new(HashMap::from([
++        ("view_style".to_owned(), "adaptive".to_owned()),
++    ]));
+     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
      pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
      pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
      pub static ref HARD_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
@@ -23,7 +30,7 @@ index 6fe1004..57f0021 100644
  }
  
  #[cfg(target_os = "android")]
-@@ -114,8 +117,8 @@ const CHARS: &[char] = &[
+@@ -114,8 +120,8 @@ const CHARS: &[char] = &[
      'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
  ];
  
